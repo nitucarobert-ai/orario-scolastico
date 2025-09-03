@@ -3,509 +3,657 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orari Scolastici</title>
+    <title>Orario Scolastico</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 20px;
+            color: #333;
         }
-        
+
         .container {
-            max-width: 400px;
+            max-width: 1200px;
             margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-        
-        .header {
-            background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
-            color: white;
-            padding: 30px 20px;
-            text-align: center;
-        }
-        
-        .header h1 {
-            font-size: 24px;
-            font-weight: bold;
-        }
-        
-        .current-info {
-            background: #f8f9fa;
             padding: 20px;
-            border-bottom: 1px solid #e9ecef;
+        }
+
+        .header {
             text-align: center;
+            color: white;
+            margin-bottom: 30px;
         }
-        
-        .current-time {
-            font-size: 18px;
-            font-weight: bold;
-            color: #495057;
+
+        .header h1 {
+            font-size: 2.5rem;
             margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
-        
-        .current-lesson {
-            font-size: 16px;
-            color: #007bff;
-            background: #e7f3ff;
-            padding: 10px;
-            border-radius: 10px;
-            margin-top: 10px;
-        }
-        
+
         .tabs {
             display: flex;
-            background: #f8f9fa;
-            border-bottom: 1px solid #e9ecef;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
         }
-        
+
         .tab {
             flex: 1;
             padding: 15px;
-            text-align: center;
-            background: none;
+            background: #f8f9fa;
             border: none;
             cursor: pointer;
-            font-size: 14px;
-            color: #6c757d;
-            transition: all 0.3s;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-right: 1px solid #dee2e6;
         }
-        
+
+        .tab:last-child {
+            border-right: none;
+        }
+
         .tab.active {
-            background: white;
-            color: #007bff;
-            font-weight: bold;
-        }
-        
-        .content {
-            padding: 20px;
-            max-height: 400px;
-            overflow-y: auto;
-        }
-        
-        .section {
-            display: none;
-        }
-        
-        .section.active {
-            display: block;
-        }
-        
-        .item-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 15px;
-        }
-        
-        .item {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-        }
-        
-        .item.professore {
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-            color: #333;
-        }
-        
-        .item.aula {
-            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
-            color: #333;
-        }
-        
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .modal.show {
-            display: flex;
-        }
-        
-        .modal-content {
-            background: white;
-            margin: 20px;
-            padding: 30px;
-            border-radius: 20px;
-            max-width: 350px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-        }
-        
-        .modal h3 {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 20px;
-        }
-        
-        .lesson-info {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-        
-        .close-btn {
             background: #007bff;
             color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 16px;
         }
-        
-        .admin-section {
-            margin-top: 20px;
+
+        .tab:hover:not(.active) {
+            background: #e9ecef;
+        }
+
+        .tab-content {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            min-height: 500px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Gestione Orari */
+        .classe-form {
+            margin-bottom: 30px;
             padding: 20px;
             background: #f8f9fa;
-            border-radius: 15px;
+            border-radius: 8px;
         }
-        
+
         .form-group {
             margin-bottom: 15px;
         }
-        
-        .form-group label {
+
+        label {
             display: block;
             margin-bottom: 5px;
+            font-weight: 600;
             color: #495057;
-            font-weight: 500;
         }
-        
-        .form-group input, .form-group select {
+
+        select, input {
             width: 100%;
             padding: 10px;
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
-            font-size: 14px;
+            border: 2px solid #dee2e6;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
         }
-        
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        .time-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
         .btn {
-            background: #28a745;
+            padding: 12px 24px;
+            background: #007bff;
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
+            border-radius: 5px;
             cursor: pointer;
-            font-size: 14px;
-            margin-right: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: #dc3545;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        /* Visualizzazione Classi */
+        .classi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .classe-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .classe-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .classe-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .orario-attuale {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .orario-attuale h2 {
+            color: #007bff;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .info-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #007bff;
+        }
+
+        .info-box h3 {
+            color: #495057;
+            margin-bottom: 10px;
+        }
+
+        .info-box p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        .orario-lista {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .orario-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .orario-item:last-child {
+            border-bottom: none;
+        }
+
+        .orario-item.current {
+            background: #e3f2fd;
+            border-left: 4px solid #007bff;
+        }
+
+        .orario-time {
+            font-weight: 600;
+            color: #007bff;
+            min-width: 120px;
+        }
+
+        .orario-details {
+            flex: 1;
+            margin-left: 20px;
+        }
+
+        .orario-details h4 {
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .orario-details p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .current-time {
+            background: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .tab {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+            
+            .time-inputs {
+                grid-template-columns: 1fr;
+            }
+            
+            .classi-grid {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+                gap: 10px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>📚 Orari Scolastici</h1>
+                    <div class="header">
+            <h1>🎓 Orario Scolastico</h1>
+            <p>Sistema di gestione orari delle classi (A-I, L-M) - Orari settimanali permanenti</p>
         </div>
-        
-        <div class="current-info">
-            <div class="current-time" id="currentTime"></div>
-            <div class="current-lesson" id="currentLesson">Nessuna lezione in corso</div>
-        </div>
-        
-        <div class="tabs">
-            <button class="tab active" onclick="showSection('classi')">Classi</button>
-            <button class="tab" onclick="showSection('professori')">Professori</button>
-            <button class="tab" onclick="showSection('aule')">Aule</button>
-            <button class="tab" onclick="showSection('admin')">Gestisci</button>
-        </div>
-        
-        <div class="content">
-            <div id="classi" class="section active">
-                <div class="item-grid" id="classiGrid"></div>
-            </div>
-            
-            <div id="professori" class="section">
-                <div class="item-grid" id="professoriGrid"></div>
-            </div>
-            
-            <div id="aule" class="section">
-                <div class="item-grid" id="auleGrid"></div>
-            </div>
-            
-            <div id="admin" class="section">
-                <div class="admin-section">
-                    <h3>Aggiungi Nuova Lezione</h3>
-                    <form id="lessonForm">
-                        <div class="form-group">
-                            <label>Classe:</label>
-                            <input type="text" id="classe" placeholder="es. 1A" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Professore:</label>
-                            <input type="text" id="professore" placeholder="es. Prof. Rossi" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Aula:</label>
-                            <input type="text" id="aula" placeholder="es. A101" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Materia:</label>
-                            <input type="text" id="materia" placeholder="es. Matematica" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Giorno:</label>
-                            <select id="giorno" required>
-                                <option value="Lunedì">Lunedì</option>
-                                <option value="Martedì">Martedì</option>
-                                <option value="Mercoledì">Mercoledì</option>
-                                <option value="Giovedì">Giovedì</option>
-                                <option value="Venerdì">Venerdì</option>
-                                <option value="Sabato">Sabato</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Ora Inizio:</label>
-                            <input type="time" id="oraInizio" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Ora Fine:</label>
-                            <input type="time" id="oraFine" required>
-                        </div>
-                        <button type="submit" class="btn">Aggiungi Lezione</button>
-                        <button type="button" class="btn" onclick="exportData()" style="background: #007bff;">Esporta Dati</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Modal -->
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <h3 id="modalTitle"></h3>
-            <div class="lesson-info" id="modalContent"></div>
-            <button class="close-btn" onclick="closeModal()">Chiudi</button>
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('gestione')">Gestisci Orari</button>
+            <button class="tab" onclick="switchTab('visualizza')">Visualizza Classi</button>
+        </div>
+
+        <!-- Tab Gestione Orari -->
+        <div id="gestione" class="tab-content">
+            <h2>Gestione Orari delle Classi</h2>
+            
+            <div class="classe-form">
+                <div class="form-group">
+                    <label for="classe-select">Seleziona Classe:</label>
+                    <select id="classe-select">
+                        <option value="">-- Seleziona una classe --</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="giorno-select">Giorno della settimana:</label>
+                    <select id="giorno-select">
+                        <option value="lunedi">Lunedì</option>
+                        <option value="martedi">Martedì</option>
+                        <option value="mercoledi">Mercoledì</option>
+                        <option value="giovedi">Giovedì</option>
+                        <option value="venerdi">Venerdì</option>
+                        <option value="sabato">Sabato</option>
+                    </select>
+                </div>
+
+                <div class="time-inputs">
+                    <div class="form-group">
+                        <label for="ora-inizio">Ora Inizio:</label>
+                        <input type="time" id="ora-inizio">
+                    </div>
+                    <div class="form-group">
+                        <label for="ora-fine">Ora Fine:</label>
+                        <input type="time" id="ora-fine">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="materia">Materia:</label>
+                    <input type="text" id="materia" placeholder="Es: Matematica">
+                </div>
+
+                <div class="form-group">
+                    <label for="professore">Professore:</label>
+                    <input type="text" id="professore" placeholder="Es: Prof. Rossi">
+                </div>
+
+                <div class="form-group">
+                    <label for="aula">Aula:</label>
+                    <input type="text" id="aula" placeholder="Es: A12">
+                </div>
+
+                <button class="btn" onclick="aggiungiOrario()">Aggiungi Orario</button>
+            </div>
+
+            <div id="orari-esistenti"></div>
+        </div>
+
+        <!-- Tab Visualizza Classi -->
+        <div id="visualizza" class="tab-content hidden">
+            <h2>Seleziona una Classe</h2>
+            
+            <div class="current-time" id="current-time"></div>
+            
+            <div class="classi-grid" id="classi-grid"></div>
+
+            <div id="orario-risultato" class="orario-attuale" style="display: none;">
+                <h2 id="classe-selezionata"></h2>
+                <div id="info-corrente"></div>
+                <div id="programma-giornaliero"></div>
+            </div>
         </div>
     </div>
 
     <script>
-        // Dati delle lezioni
-        let orari = JSON.parse(localStorage.getItem('orari') || '[]');
+        // Dati globali
+        let orariScolastici = {};
         
-        // Dati di esempio
-        if (orari.length === 0) {
-            orari = [
-                {classe: '1A', professore: 'Prof. Rossi', aula: 'A101', materia: 'Matematica', giorno: 'Lunedì', oraInizio: '08:00', oraFine: '09:00'},
-                {classe: '1A', professore: 'Prof. Bianchi', aula: 'A101', materia: 'Italiano', giorno: 'Lunedì', oraInizio: '09:00', oraFine: '10:00'},
-                {classe: '2B', professore: 'Prof. Verdi', aula: 'B201', materia: 'Storia', giorno: 'Lunedì', oraInizio: '08:00', oraFine: '09:00'},
-                {classe: '1A', professore: 'Prof. Rossi', aula: 'A101', materia: 'Matematica', giorno: 'Martedì', oraInizio: '10:00', oraFine: '11:00'},
-            ];
-            saveData();
-        }
-        
-        function saveData() {
-            localStorage.setItem('orari', JSON.stringify(orari));
-        }
-        
-        function showSection(section) {
-            // Nasconde tutte le sezioni
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        // Inizializzazione
+        document.addEventListener('DOMContentLoaded', function() {
+            generaClassi();
+            aggiornaOraCorrente();
+            setInterval(aggiornaOraCorrente, 1000);
+            caricaDatiSalvati();
+        });
+
+        // Genera tutte le classi (1-5, A-M)
+        function generaClassi() {
+            const classeSelect = document.getElementById('classe-select');
+            const classiGrid = document.getElementById('classi-grid');
             
-            // Mostra la sezione selezionata
-            document.getElementById(section).classList.add('active');
-            event.target.classList.add('active');
-            
-            // Aggiorna il contenuto
-            if (section === 'classi') updateClassi();
-            if (section === 'professori') updateProfessori();
-            if (section === 'aule') updateAule();
-        }
-        
-        function updateClassi() {
-            const classi = [...new Set(orari.map(o => o.classe))];
-            const grid = document.getElementById('classiGrid');
-            grid.innerHTML = classi.map(classe => 
-                `<div class="item" onclick="showInfo('classe', '${classe}')">
-                    <div>📖 ${classe}</div>
-                </div>`
-            ).join('');
-        }
-        
-        function updateProfessori() {
-            const professori = [...new Set(orari.map(o => o.professore))];
-            const grid = document.getElementById('professoriGrid');
-            grid.innerHTML = professori.map(professore => 
-                `<div class="item professore" onclick="showInfo('professore', '${professore}')">
-                    <div>👨‍🏫 ${professore}</div>
-                </div>`
-            ).join('');
-        }
-        
-        function updateAule() {
-            const aule = [...new Set(orari.map(o => o.aula))];
-            const grid = document.getElementById('auleGrid');
-            grid.innerHTML = aule.map(aula => 
-                `<div class="item aula" onclick="showInfo('aula', '${aula}')">
-                    <div>🏫 ${aula}</div>
-                </div>`
-            ).join('');
-        }
-        
-        function showInfo(type, value) {
-            const now = new Date();
-            const giorni = ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
-            const giornoOggi = giorni[now.getDay()];
-            const oraOggi = now.toTimeString().slice(0, 5);
-            
-            let lezioni = orari.filter(o => o[type] === value);
-            let currentLesson = null;
-            
-            // Trova la lezione corrente
-            for (let lezione of lezioni) {
-                if (lezione.giorno === giornoOggi) {
-                    if (oraOggi >= lezione.oraInizio && oraOggi <= lezione.oraFine) {
-                        currentLesson = lezione;
-                        break;
+            for (let anno = 1; anno <= 5; anno++) {
+                for (let sezione = 'A'.charCodeAt(0); sezione <= 'M'.charCodeAt(0); sezione++) {
+                    const classe = anno + String.fromCharCode(sezione);
+                    
+                    // Aggiungi al select
+                    const option = document.createElement('option');
+                    option.value = classe;
+                    option.textContent = classe;
+                    classeSelect.appendChild(option);
+                    
+                    // Aggiungi alla griglia
+                    const card = document.createElement('div');
+                    card.className = 'classe-card';
+                    card.innerHTML = `<h3>${classe}</h3><p>Clicca per orario</p>`;
+                    card.onclick = () => visualizzaOrarioClasse(classe);
+                    classiGrid.appendChild(card);
+                    
+                    // Inizializza orario vuoto
+                    if (!orariScolastici[classe]) {
+                        orariScolastici[classe] = {};
                     }
                 }
             }
+        }
+
+        // Cambia tab
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
             
-            document.getElementById('modalTitle').textContent = `${type.charAt(0).toUpperCase() + type.slice(1)}: ${value}`;
-            
-            let content = '';
-            if (currentLesson) {
-                content = `<div style="background: #d4edda; color: #155724; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
-                    <strong>📍 ORA IN CORSO:</strong><br>
-                    ${currentLesson.materia} - ${currentLesson.professore}<br>
-                    Aula: ${currentLesson.aula}<br>
-                    ${currentLesson.oraInizio} - ${currentLesson.oraFine}
-                </div>`;
-            }
-            
-            content += '<h4>Tutti gli orari:</h4>';
-            const groupedLessons = {};
-            lezioni.forEach(l => {
-                if (!groupedLessons[l.giorno]) groupedLessons[l.giorno] = [];
-                groupedLessons[l.giorno].push(l);
+            event.target.classList.add('active');
+            document.getElementById(tabName).classList.remove('hidden');
+        }
+
+        // Aggiorna ora corrente
+        function aggiornaOraCorrente() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('it-IT');
+            const dateString = now.toLocaleDateString('it-IT', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
             });
             
-            for (let giorno in groupedLessons) {
-                content += `<div style="margin-bottom: 15px; text-align: left;">
-                    <strong>${giorno}:</strong><br>`;
-                groupedLessons[giorno]
-                    .sort((a, b) => a.oraInizio.localeCompare(b.oraInizio))
-                    .forEach(l => {
-                        content += `<div style="margin-left: 10px; margin-bottom: 5px;">
-                            ${l.oraInizio}-${l.oraFine}: ${l.materia} (${l.professore}, ${l.aula})
+            const currentTimeElement = document.getElementById('current-time');
+            if (currentTimeElement) {
+                currentTimeElement.innerHTML = `${dateString}<br>${timeString}`;
+            }
+        }
+
+        // Aggiungi orario
+        function aggiungiOrario() {
+            const classe = document.getElementById('classe-select').value;
+            const giorno = document.getElementById('giorno-select').value;
+            const oraInizio = document.getElementById('ora-inizio').value;
+            const oraFine = document.getElementById('ora-fine').value;
+            const materia = document.getElementById('materia').value;
+            const professore = document.getElementById('professore').value;
+            const aula = document.getElementById('aula').value;
+
+            if (!classe || !oraInizio || !oraFine || !materia || !professore || !aula) {
+                alert('Compila tutti i campi!');
+                return;
+            }
+
+            if (!orariScolastici[classe][giorno]) {
+                orariScolastici[classe][giorno] = [];
+            }
+
+            const nuovoOrario = {
+                oraInizio,
+                oraFine,
+                materia,
+                professore,
+                aula
+            };
+
+            orariScolastici[classe][giorno].push(nuovoOrario);
+            orariScolastici[classe][giorno].sort((a, b) => a.oraInizio.localeCompare(b.oraInizio));
+
+            // Pulisci form
+            document.getElementById('ora-inizio').value = '';
+            document.getElementById('ora-fine').value = '';
+            document.getElementById('materia').value = '';
+            document.getElementById('professore').value = '';
+            document.getElementById('aula').value = '';
+
+            salvaDati();
+            mostraOrariEsistenti();
+            alert('Orario aggiunto con successo!');
+        }
+
+        // Mostra orari esistenti
+        function mostraOrariEsistenti() {
+            const classe = document.getElementById('classe-select').value;
+            const container = document.getElementById('orari-esistenti');
+            
+            if (!classe) {
+                container.innerHTML = '';
+                return;
+            }
+
+            let html = `<h3>Orari esistenti per la classe ${classe}</h3>`;
+            
+            const giorni = ['lunedi', 'martedi', 'mercoledi', 'giovedi', 'venerdi', 'sabato'];
+            const nomiGiorni = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
+            
+            giorni.forEach((giorno, index) => {
+                if (orariScolastici[classe][giorno] && orariScolastici[classe][giorno].length > 0) {
+                    html += `<div class="orario-lista">
+                        <h4 style="background: #007bff; color: white; padding: 10px; margin: 0;">${nomiGiorni[index]}</h4>`;
+                    
+                    orariScolastici[classe][giorno].forEach((orario, i) => {
+                        html += `<div class="orario-item">
+                            <div class="orario-time">${orario.oraInizio} - ${orario.oraFine}</div>
+                            <div class="orario-details">
+                                <h4>${orario.materia}</h4>
+                                <p>${orario.professore} • Aula ${orario.aula}</p>
+                            </div>
+                            <button class="btn btn-danger" onclick="rimuoviOrario('${classe}', '${giorno}', ${i})">Rimuovi</button>
                         </div>`;
                     });
-                content += '</div>';
-            }
-            
-            document.getElementById('modalContent').innerHTML = content;
-            document.getElementById('modal').classList.add('show');
-        }
-        
-        function closeModal() {
-            document.getElementById('modal').classList.remove('show');
-        }
-        
-        function updateCurrentTime() {
-            const now = new Date();
-            const time = now.toLocaleTimeString('it-IT', {hour: '2-digit', minute: '2-digit'});
-            const giorni = ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
-            const giorno = giorni[now.getDay()];
-            
-            document.getElementById('currentTime').textContent = `${giorno} ${time}`;
-            
-            // Trova la lezione corrente
-            const currentLessons = orari.filter(o => {
-                return o.giorno === giorno && 
-                       time >= o.oraInizio && 
-                       time <= o.oraFine;
+                    
+                    html += '</div>';
+                }
             });
             
-            if (currentLessons.length > 0) {
-                const lesson = currentLessons[0];
-                document.getElementById('currentLesson').innerHTML = 
-                    `🎯 In corso: ${lesson.materia}<br>
-                     ${lesson.professore} - Aula ${lesson.aula}<br>
-                     ${lesson.oraInizio} - ${lesson.oraFine}`;
+            container.innerHTML = html;
+        }
+
+        // Rimuovi orario
+        function rimuoviOrario(classe, giorno, index) {
+            if (confirm('Sei sicuro di voler rimuovere questo orario?')) {
+                orariScolastici[classe][giorno].splice(index, 1);
+                salvaDati();
+                mostraOrariEsistenti();
+            }
+        }
+
+        // Visualizza orario classe
+        function visualizzaOrarioClasse(classe) {
+            const now = new Date();
+            const giornoCorrente = now.getDay(); // 0 = domenica, 1 = lunedì, ...
+            const oraCorrente = now.getHours() * 100 + now.getMinutes();
+            
+            const giorni = ['domenica', 'lunedi', 'martedi', 'mercoledi', 'giovedi', 'venerdi', 'sabato'];
+            const nomiGiorni = ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
+            const giornoOggi = giorni[giornoCorrente];
+            
+            document.getElementById('classe-selezionata').textContent = `Classe ${classe}`;
+            
+            // Trova l'orario attuale (definito qui per essere disponibile ovunque)
+            let orarioAttuale = null;
+            if (giornoCorrente !== 0 && orariScolastici[classe][giornoOggi]) {
+                const orariOggi = orariScolastici[classe][giornoOggi];
+                orarioAttuale = trovaOrarioAttuale(orariOggi, oraCorrente);
+            }
+            
+            // Info corrente
+            let infoCorrente = '<div class="info-box"><h3>📅 Informazione Attuale</h3>';
+            
+            if (giornoCorrente === 0) {
+                infoCorrente += '<p>Oggi è domenica - Nessuna lezione programmata</p>';
+            } else if (orariScolastici[classe][giornoOggi]) {
+                const orariOggi = orariScolastici[classe][giornoOggi];
+                
+                if (orarioAttuale) {
+                    infoCorrente += `
+                        <p><strong>🕒 Ora corrente:</strong> ${orarioAttuale.oraInizio} - ${orarioAttuale.oraFine}</p>
+                        <p><strong>📚 Materia:</strong> ${orarioAttuale.materia}</p>
+                        <p><strong>👨‍🏫 Professore:</strong> ${orarioAttuale.professore}</p>
+                        <p><strong>🏫 Aula:</strong> ${orarioAttuale.aula}</p>
+                    `;
+                } else {
+                    const prossimoOrario = trovaProssimoOrario(orariOggi, oraCorrente);
+                    if (prossimoOrario) {
+                        infoCorrente += `
+                            <p><strong>Nessuna lezione in corso</strong></p>
+                            <p><strong>Prossima lezione:</strong> ${prossimoOrario.materia} alle ${prossimoOrario.oraInizio}</p>
+                        `;
+                    } else {
+                        infoCorrente += '<p>Nessuna lezione in corso e nessuna lezione rimanente oggi</p>';
+                    }
+                }
             } else {
-                document.getElementById('currentLesson').textContent = 'Nessuna lezione in corso';
+                infoCorrente += '<p>Nessun orario programmato per oggi</p>';
+            }
+            infoCorrente += '</div>';
+            
+            // Programma giornaliero
+            let programmaHtml = '<div class="info-box"><h3>📋 Programma di Oggi</h3>';
+            if (orariScolastici[classe][giornoOggi] && orariScolastici[classe][giornoOggi].length > 0) {
+                programmaHtml += '<div class="orario-lista">';
+                orariScolastici[classe][giornoOggi].forEach(orario => {
+                    const isCurrentClass = orarioAttuale === orario;
+                    programmaHtml += `<div class="orario-item ${isCurrentClass ? 'current' : ''}">
+                        <div class="orario-time">${orario.oraInizio} - ${orario.oraFine}</div>
+                        <div class="orario-details">
+                            <h4>${orario.materia}</h4>
+                            <p>${orario.professore} • Aula ${orario.aula}</p>
+                        </div>
+                    </div>`;
+                });
+                programmaHtml += '</div>';
+            } else {
+                programmaHtml += '<p>Nessuna lezione programmata per oggi</p>';
+            }
+            programmaHtml += '</div>';
+            
+            document.getElementById('info-corrente').innerHTML = infoCorrente;
+            document.getElementById('programma-giornaliero').innerHTML = programmaHtml;
+            document.getElementById('orario-risultato').style.display = 'block';
+            
+            // Scorri alla sezione risultato
+            document.getElementById('orario-risultato').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Trova orario attuale
+        function trovaOrarioAttuale(orari, oraCorrente) {
+            for (let orario of orari) {
+                const inizio = timeToMinutes(orario.oraInizio);
+                const fine = timeToMinutes(orario.oraFine);
+                const corrente = Math.floor(oraCorrente / 100) * 60 + (oraCorrente % 100);
+                
+                if (corrente >= inizio && corrente < fine) {
+                    return orario;
+                }
+            }
+            return null;
+        }
+
+        // Trova prossimo orario
+        function trovaProssimoOrario(orari, oraCorrente) {
+            const corrente = Math.floor(oraCorrente / 100) * 60 + (oraCorrente % 100);
+            
+            for (let orario of orari) {
+                const inizio = timeToMinutes(orario.oraInizio);
+                if (inizio > corrente) {
+                    return orario;
+                }
+            }
+            return null;
+        }
+
+        // Converte ora in minuti
+        function timeToMinutes(time) {
+            const [ore, minuti] = time.split(':').map(Number);
+            return ore * 60 + minuti;
+        }
+
+        // Event listener per cambiamento classe
+        document.getElementById('classe-select').addEventListener('change', mostraOrariEsistenti);
+
+        // Salva dati nel browser
+        function salvaDati() {
+            localStorage.setItem('orariScolastici', JSON.stringify(orariScolastici));
+        }
+
+        // Carica dati salvati
+        function caricaDatiSalvati() {
+            const datiSalvati = localStorage.getItem('orariScolastici');
+            if (datiSalvati) {
+                orariScolastici = JSON.parse(datiSalvati);
             }
         }
-        
-        // Form per aggiungere lezioni
-        document.getElementById('lessonForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const newLesson = {
-                classe: document.getElementById('classe').value,
-                professore: document.getElementById('professore').value,
-                aula: document.getElementById('aula').value,
-                materia: document.getElementById('materia').value,
-                giorno: document.getElementById('giorno').value,
-                oraInizio: document.getElementById('oraInizio').value,
-                oraFine: document.getElementById('oraFine').value
-            };
-            
-            orari.push(newLesson);
-            saveData();
-            
-            // Resetta il form
-            this.reset();
-            
-            // Aggiorna le viste
-            updateClassi();
-            updateProfessori();
-            updateAule();
-            
-            alert('Lezione aggiunta con successo!');
-        });
-        
-        function exportData() {
-            const dataStr = JSON.stringify(orari, null, 2);
-            const dataBlob = new Blob([dataStr], {type: 'application/json'});
-            const url = URL.createObjectURL(dataBlob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'orari_scolastici.json';
-            link.click();
-        }
-        
-        // Inizializza l'app
-        updateCurrentTime();
-        setInterval(updateCurrentTime, 60000); // Aggiorna ogni minuto
-        updateClassi();
-        
-        // Chiude il modal cliccando fuori
-        document.getElementById('modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
-        });
     </script>
 </body>
 </html>
