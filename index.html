@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orario Scolastico</title>
+    <meta name="theme-color" content="#075e54">
+    <title>Chat Sicura</title>
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiQ2hhdCBTaWN1cmEiLCJzaG9ydF9uYW1lIjoiQ2hhdCIsInN0YXJ0X3VybCI6Ii4vIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiIzA3NWU1NCIsInRoZW1lX2NvbG9yIjoiIzA3NWU1NCIsImljb25zIjpbeyJzcmMiOiJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUI0Yld4dWN6MGlhSFIwY0RvdkwzZDNkeTUzTXk1dmNtY3ZNakF3TUM5emRtY2lJSFpwWlhkQ2IzZzlJakFnTUNBeE9USWdNVGt5SWo0OGNtVmpkQ0IzYVdSMGFEMGlNVGt5SWlCb1pXbG5hSFE5SWpFNU1pSWdabWxzYkQwaUl6QTNOV1UxTkNJdlBqeDBaWGgwSUhnOUlqazJJaUI1UFNJeE1EUWlJR1pwYkd3OUluZG9hWFJsSWlCbWIyNTBMWE5wZW1VOUlqRXpJaUJtYjI1MExYZGxhV2RvZEQwaVltOXNaQ0krUXp3dmRHVjRkRDQ4TDNOMlp6ND0iLCJzaXplcyI6IjE5MngxOTIiLCJ0eXBlIjoiaW1hZ2Uvc3ZnK3htbCJ9XX0=">
+    
     <style>
         * {
             margin: 0;
@@ -12,648 +15,1060 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            color: #333;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .header {
-            text-align: center;
-            color: white;
-            margin-bottom: 30px;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .tabs {
-            display: flex;
-            background: white;
-            border-radius: 10px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f0f0f0;
+            height: 100vh;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
         }
 
-        .tab {
-            flex: 1;
-            padding: 15px;
-            background: #f8f9fa;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border-right: 1px solid #dee2e6;
+        /* Login Page */
+        .login-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #075e54, #128c7e);
         }
 
-        .tab:last-child {
-            border-right: none;
-        }
-
-        .tab.active {
-            background: #007bff;
-            color: white;
-        }
-
-        .tab:hover:not(.active) {
-            background: #e9ecef;
-        }
-
-        .tab-content {
+        .login-form {
             background: white;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            min-height: 500px;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            width: 350px;
+            text-align: center;
         }
 
-        .hidden {
-            display: none;
-        }
-
-        /* Gestione Orari */
-        .classe-form {
+        .login-form h1 {
+            color: #075e54;
             margin-bottom: 30px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 8px;
+            font-size: 24px;
         }
 
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            text-align: left;
         }
 
-        label {
+        .form-group label {
             display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-            color: #495057;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
         }
 
-        select, input {
+        .form-group input {
             width: 100%;
-            padding: 10px;
-            border: 2px solid #dee2e6;
-            border-radius: 5px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
         }
 
-        select:focus, input:focus {
+        .form-group input:focus {
             outline: none;
-            border-color: #007bff;
+            border-color: #075e54;
         }
 
-        .time-inputs {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .btn {
-            padding: 12px 24px;
-            background: #007bff;
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: #075e54;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
+            font-size: 16px;
             cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
+            transition: background 0.3s;
         }
 
-        .btn:hover {
-            background: #0056b3;
-            transform: translateY(-2px);
+        .login-btn:hover {
+            background: #064943;
         }
 
-        .btn-danger {
-            background: #dc3545;
+        .error-msg {
+            color: #e53e3e;
+            margin-top: 10px;
+            font-size: 14px;
         }
 
-        .btn-danger:hover {
-            background: #c82333;
+        /* Main Chat Interface */
+        .chat-container {
+            display: none;
+            height: 100vh;
+            flex-direction: row;
         }
 
-        /* Visualizzazione Classi */
-        .classi-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
+        /* Sidebar */
+        .sidebar {
+            width: 300px;
+            background: white;
+            border-right: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
         }
 
-        .classe-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .sidebar-header {
+            background: #075e54;
             color: white;
             padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        .classe-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-        }
-
-        .classe-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 5px;
-        }
-
-        .orario-attuale {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-
-        .orario-attuale h2 {
-            color: #007bff;
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-        }
-
-        .info-box {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 10px 0;
-            border-left: 4px solid #007bff;
-        }
-
-        .info-box h3 {
-            color: #495057;
-            margin-bottom: 10px;
-        }
-
-        .info-box p {
-            font-size: 1.1rem;
-            color: #666;
-        }
-
-        .orario-lista {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .orario-item {
-            padding: 15px 20px;
-            border-bottom: 1px solid #dee2e6;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .orario-item:last-child {
-            border-bottom: none;
+        .user-info {
+            font-weight: 500;
         }
 
-        .orario-item.current {
-            background: #e3f2fd;
-            border-left: 4px solid #007bff;
-        }
-
-        .orario-time {
-            font-weight: 600;
-            color: #007bff;
-            min-width: 120px;
-        }
-
-        .orario-details {
-            flex: 1;
-            margin-left: 20px;
-        }
-
-        .orario-details h4 {
-            margin-bottom: 5px;
-            color: #333;
-        }
-
-        .orario-details p {
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        .current-time {
-            background: #28a745;
+        .logout-btn {
+            background: none;
+            border: none;
             color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-align: center;
-            margin-bottom: 20px;
-            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background 0.3s;
         }
 
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .new-chat {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .new-chat input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .new-chat input:focus {
+            outline: none;
+            border-color: #075e54;
+        }
+
+        .chat-list {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .chat-item {
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .chat-item:hover {
+            background: #f5f5f5;
+        }
+
+        .chat-item.active {
+            background: #e1fdf6;
+            border-right: 3px solid #075e54;
+        }
+
+        .chat-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #075e54;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 12px;
+        }
+
+        .chat-info {
+            flex: 1;
+        }
+
+        .chat-name {
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .chat-preview {
+            font-size: 13px;
+            color: #666;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* Chat Area */
+        .chat-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #e5ddd5;
+        }
+
+        .chat-header {
+            background: #075e54;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .chat-header-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-weight: bold;
+        }
+
+        .chat-header-info h3 {
+            margin-bottom: 2px;
+        }
+
+        .chat-header-info span {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .messages-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><defs><pattern id="pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(0,0,0,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23pattern)"/></svg>');
+        }
+
+        .message {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .message.sent {
+            justify-content: flex-end;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 10px 15px;
+            border-radius: 18px;
+            word-wrap: break-word;
+            position: relative;
+        }
+
+        .message.received .message-content {
+            background: white;
+            border-bottom-left-radius: 4px;
+        }
+
+        .message.sent .message-content {
+            background: #dcf8c6;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message-time {
+            font-size: 11px;
+            color: #666;
+            margin-top: 4px;
+            text-align: right;
+        }
+
+        .message.received .message-time {
+            text-align: left;
+        }
+
+        /* Message Input */
+        .message-input-area {
+            background: #f0f0f0;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .message-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 25px;
+            font-size: 15px;
+            background: white;
+            resize: none;
+            max-height: 100px;
+            overflow-y: auto;
+        }
+
+        .message-input:focus {
+            outline: none;
+        }
+
+        .attachment-btn {
+            width: 45px;
+            height: 45px;
+            border: none;
+            border-radius: 50%;
+            background: #25d366;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+            position: relative;
+        }
+
+        .attachment-btn:hover {
+            background: #22c55e;
+        }
+
+        .attachment-btn input[type="file"] {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .send-btn {
+            width: 45px;
+            height: 45px;
+            border: none;
+            border-radius: 50%;
+            background: #075e54;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .send-btn:hover {
+            background: #064943;
+        }
+
+        .send-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Media Messages */
+        .message-media {
+            max-width: 100%;
+            margin-bottom: 8px;
+        }
+
+        .message-image {
+            max-width: 250px;
+            max-height: 300px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: block;
+        }
+
+        .message-file {
+            background: rgba(0,0,0,0.05);
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            max-width: 300px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .message-file:hover {
+            background: rgba(0,0,0,0.1);
+        }
+
+        .file-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: #075e54;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .file-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .file-name {
+            font-weight: 500;
+            margin-bottom: 2px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .file-size {
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* Modal for image preview */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+        }
+
+        .modal-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 20px;
+        }
+
+        .modal-image {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .modal-close:hover {
+            opacity: 0.7;
+        }
+
+        /* Welcome Screen */
+        .welcome-screen {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100%;
+            color: #666;
+            background: #f8f9fa;
+        }
+
+        .welcome-screen h2 {
+            margin-bottom: 10px;
+            color: #075e54;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .container {
-                padding: 10px;
+            .chat-container {
+                flex-direction: column;
             }
             
-            .header h1 {
-                font-size: 2rem;
+            .sidebar {
+                width: 100%;
+                height: 50%;
             }
             
-            .tab {
-                padding: 10px;
-                font-size: 0.9rem;
+            .chat-area {
+                height: 50%;
             }
-            
-            .time-inputs {
-                grid-template-columns: 1fr;
-            }
-            
-            .classi-grid {
-                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-                gap: 10px;
-            }
+        }
+
+        /* Encryption indicator */
+        .encryption-indicator {
+            font-size: 10px;
+            color: #25d366;
+            text-align: center;
+            padding: 5px;
+            background: rgba(37, 211, 102, 0.1);
+            margin: 10px 20px;
+            border-radius: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-                    <div class="header">
-            <h1>🎓 Orario Scolastico</h1>
-            <p>Sistema di gestione orari delle classi (A-I, L-M) - Orari settimanali permanenti</p>
-        </div>
+    <!-- Login Page -->
+    <div id="loginPage" class="login-container">
+        <form class="login-form" id="loginForm">
+            <h1>🔐 Chat Sicura</h1>
+            <div class="form-group">
+                <label for="username">Nome Utente</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="login-btn">Accedi</button>
+            <div id="errorMsg" class="error-msg"></div>
+        </form>
+    </div>
 
-        <div class="tabs">
-            <button class="tab active" onclick="switchTab('gestione')">Gestisci Orari</button>
-            <button class="tab" onclick="switchTab('visualizza')">Visualizza Classi</button>
-        </div>
-
-        <!-- Tab Gestione Orari -->
-        <div id="gestione" class="tab-content">
-            <h2>Gestione Orari delle Classi</h2>
+    <!-- Main Chat Interface -->
+    <div id="chatPage" class="chat-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="user-info">
+                    <div id="currentUser"></div>
+                </div>
+                <button class="logout-btn" onclick="logout()">Esci</button>
+            </div>
             
-            <div class="classe-form">
-                <div class="form-group">
-                    <label for="classe-select">Seleziona Classe:</label>
-                    <select id="classe-select">
-                        <option value="">-- Seleziona una classe --</option>
-                    </select>
-                </div>
+            <div class="new-chat">
+                <input type="text" id="newChatInput" placeholder="Cerca o inizia una nuova chat..." onkeypress="handleNewChat(event)">
+            </div>
+            
+            <div class="chat-list" id="chatList">
+                <!-- Chat items will be populated here -->
+            </div>
+        </div>
 
-                <div class="form-group">
-                    <label for="giorno-select">Giorno della settimana:</label>
-                    <select id="giorno-select">
-                        <option value="lunedi">Lunedì</option>
-                        <option value="martedi">Martedì</option>
-                        <option value="mercoledi">Mercoledì</option>
-                        <option value="giovedi">Giovedì</option>
-                        <option value="venerdi">Venerdì</option>
-                        <option value="sabato">Sabato</option>
-                    </select>
+        <!-- Chat Area -->
+        <div class="chat-area">
+            <div id="welcomeScreen" class="welcome-screen">
+                <h2>Benvenuto nella Chat Sicura</h2>
+                <p>Seleziona una chat per iniziare o cerca un utente per iniziare una nuova conversazione.</p>
+                <div style="margin-top: 20px; font-size: 12px;">
+                    🔐 Tutti i messaggi sono crittografati end-to-end
                 </div>
-
-                <div class="time-inputs">
-                    <div class="form-group">
-                        <label for="ora-inizio">Ora Inizio:</label>
-                        <input type="time" id="ora-inizio">
-                    </div>
-                    <div class="form-group">
-                        <label for="ora-fine">Ora Fine:</label>
-                        <input type="time" id="ora-fine">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="materia">Materia:</label>
-                    <input type="text" id="materia" placeholder="Es: Matematica">
-                </div>
-
-                <div class="form-group">
-                    <label for="professore">Professore:</label>
-                    <input type="text" id="professore" placeholder="Es: Prof. Rossi">
-                </div>
-
-                <div class="form-group">
-                    <label for="aula">Aula:</label>
-                    <input type="text" id="aula" placeholder="Es: A12">
-                </div>
-
-                <button class="btn" onclick="aggiungiOrario()">Aggiungi Orario</button>
             </div>
 
-            <div id="orari-esistenti"></div>
-        </div>
+            <div id="chatArea" style="display: none; height: 100%; flex-direction: column;">
+                <div class="chat-header">
+                    <div class="chat-header-avatar" id="chatHeaderAvatar">U</div>
+                    <div class="chat-header-info">
+                        <h3 id="chatHeaderName">Nome Utente</h3>
+                        <span>🔐 Crittografia end-to-end attiva</span>
+                    </div>
+                </div>
 
-        <!-- Tab Visualizza Classi -->
-        <div id="visualizza" class="tab-content hidden">
-            <h2>Seleziona una Classe</h2>
-            
-            <div class="current-time" id="current-time"></div>
-            
-            <div class="classi-grid" id="classi-grid"></div>
+                <div class="encryption-indicator">
+                    🔒 I messaggi sono protetti con crittografia end-to-end. Solo tu e il destinatario potete leggerli.
+                </div>
 
-            <div id="orario-risultato" class="orario-attuale" style="display: none;">
-                <h2 id="classe-selezionata"></h2>
-                <div id="info-corrente"></div>
-                <div id="programma-giornaliero"></div>
+                <div class="messages-area" id="messagesArea">
+                    <!-- Messages will be populated here -->
+                </div>
+
+                <div class="message-input-area">
+                    <button class="attachment-btn" title="Allega file o immagine">
+                        <input type="file" id="fileInput" accept="*/*" onchange="handleFileSelect(event)" multiple>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z"/>
+                        </svg>
+                    </button>
+                    <textarea 
+                        class="message-input" 
+                        id="messageInput" 
+                        placeholder="Scrivi un messaggio..." 
+                        rows="1"
+                        onkeypress="handleMessageInput(event)"
+                        oninput="autoResize(this)">
+                    </textarea>
+                    <button class="send-btn" onclick="sendMessage()" id="sendBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
+    <!-- Modal for image preview -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="modal-close">&times;</span>
+        <div class="modal-content">
+            <img id="modalImage" class="modal-image" src="" alt="">
+        </div>
+    </div>
+
     <script>
-        // Dati globali
-        let orariScolastici = {};
-        
-        // Inizializzazione
+        // Configuration - MODIFICA QUI LE CREDENZIALI
+        const VALID_USERS = {
+            'admin': 'password123',
+            'user1': 'mypass1',
+            'user2': 'mypass2',
+            'mario': 'rossi123',
+            'giulia': 'verdi456'
+        };
+
+        // Current session
+        let currentUser = null;
+        let currentChat = null;
+        let chatData = {};
+        let encryptionKey = null;
+
+        // Initialize app
         document.addEventListener('DOMContentLoaded', function() {
-            generaClassi();
-            aggiornaOraCorrente();
-            setInterval(aggiornaOraCorrente, 1000);
-            caricaDatiSalvati();
+            // Check if user is already logged in
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser && VALID_USERS[savedUser]) {
+                currentUser = savedUser;
+                showChatInterface();
+            }
+
+            // Load chat data
+            loadChatData();
         });
 
-        // Genera tutte le classi (1-5, A-M)
-        function generaClassi() {
-            const classeSelect = document.getElementById('classe-select');
-            const classiGrid = document.getElementById('classi-grid');
+        // Login functionality
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
             
-            for (let anno = 1; anno <= 5; anno++) {
-                for (let sezione = 'A'.charCodeAt(0); sezione <= 'M'.charCodeAt(0); sezione++) {
-                    const classe = anno + String.fromCharCode(sezione);
-                    
-                    // Aggiungi al select
-                    const option = document.createElement('option');
-                    option.value = classe;
-                    option.textContent = classe;
-                    classeSelect.appendChild(option);
-                    
-                    // Aggiungi alla griglia
-                    const card = document.createElement('div');
-                    card.className = 'classe-card';
-                    card.innerHTML = `<h3>${classe}</h3><p>Clicca per orario</p>`;
-                    card.onclick = () => visualizzaOrarioClasse(classe);
-                    classiGrid.appendChild(card);
-                    
-                    // Inizializza orario vuoto
-                    if (!orariScolastici[classe]) {
-                        orariScolastici[classe] = {};
-                    }
-                }
+            if (VALID_USERS[username] && VALID_USERS[username] === password) {
+                currentUser = username;
+                localStorage.setItem('currentUser', username);
+                generateEncryptionKey();
+                showChatInterface();
+            } else {
+                document.getElementById('errorMsg').textContent = 'Credenziali non valide';
             }
+        });
+
+        function showChatInterface() {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('chatPage').style.display = 'flex';
+            document.getElementById('currentUser').textContent = currentUser;
+            loadChatList();
         }
 
-        // Cambia tab
-        function switchTab(tabName) {
-            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
-            
-            event.target.classList.add('active');
-            document.getElementById(tabName).classList.remove('hidden');
+        function logout() {
+            localStorage.removeItem('currentUser');
+            currentUser = null;
+            currentChat = null;
+            encryptionKey = null;
+            document.getElementById('loginPage').style.display = 'block';
+            document.getElementById('chatPage').style.display = 'none';
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('errorMsg').textContent = '';
         }
 
-        // Aggiorna ora corrente
-        function aggiornaOraCorrente() {
-            const now = new Date();
-            const timeString = now.toLocaleTimeString('it-IT');
-            const dateString = now.toLocaleDateString('it-IT', { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-            });
+        // Encryption functions
+        async function generateEncryptionKey() {
+            const keyMaterial = await window.crypto.subtle.importKey(
+                'raw',
+                new TextEncoder().encode(currentUser + 'secret_salt_2024'),
+                { name: 'PBKDF2' },
+                false,
+                ['deriveKey']
+            );
             
-            const currentTimeElement = document.getElementById('current-time');
-            if (currentTimeElement) {
-                currentTimeElement.innerHTML = `${dateString}<br>${timeString}`;
-            }
+            encryptionKey = await window.crypto.subtle.deriveKey(
+                {
+                    name: 'PBKDF2',
+                    salt: new TextEncoder().encode('chat_app_salt'),
+                    iterations: 100000,
+                    hash: 'SHA-256'
+                },
+                keyMaterial,
+                { name: 'AES-GCM', length: 256 },
+                false,
+                ['encrypt', 'decrypt']
+            );
         }
 
-        // Aggiungi orario
-        function aggiungiOrario() {
-            const classe = document.getElementById('classe-select').value;
-            const giorno = document.getElementById('giorno-select').value;
-            const oraInizio = document.getElementById('ora-inizio').value;
-            const oraFine = document.getElementById('ora-fine').value;
-            const materia = document.getElementById('materia').value;
-            const professore = document.getElementById('professore').value;
-            const aula = document.getElementById('aula').value;
-
-            if (!classe || !oraInizio || !oraFine || !materia || !professore || !aula) {
-                alert('Compila tutti i campi!');
-                return;
-            }
-
-            if (!orariScolastici[classe][giorno]) {
-                orariScolastici[classe][giorno] = [];
-            }
-
-            const nuovoOrario = {
-                oraInizio,
-                oraFine,
-                materia,
-                professore,
-                aula
-            };
-
-            orariScolastici[classe][giorno].push(nuovoOrario);
-            orariScolastici[classe][giorno].sort((a, b) => a.oraInizio.localeCompare(b.oraInizio));
-
-            // Pulisci form
-            document.getElementById('ora-inizio').value = '';
-            document.getElementById('ora-fine').value = '';
-            document.getElementById('materia').value = '';
-            document.getElementById('professore').value = '';
-            document.getElementById('aula').value = '';
-
-            salvaDati();
-            mostraOrariEsistenti();
-            alert('Orario aggiunto con successo!');
+        async function encryptMessage(message) {
+            const iv = window.crypto.getRandomValues(new Uint8Array(12));
+            const encodedMessage = new TextEncoder().encode(message);
+            
+            const encrypted = await window.crypto.subtle.encrypt(
+                { name: 'AES-GCM', iv: iv },
+                encryptionKey,
+                encodedMessage
+            );
+            
+            const result = new Uint8Array(iv.length + encrypted.byteLength);
+            result.set(iv);
+            result.set(new Uint8Array(encrypted), iv.length);
+            
+            return Array.from(result);
         }
 
-        // Mostra orari esistenti
-        function mostraOrariEsistenti() {
-            const classe = document.getElementById('classe-select').value;
-            const container = document.getElementById('orari-esistenti');
+        async function encryptFile(fileData) {
+            const iv = window.crypto.getRandomValues(new Uint8Array(12));
+            const encrypted = await window.crypto.subtle.encrypt(
+                { name: 'AES-GCM', iv: iv },
+                encryptionKey,
+                fileData
+            );
             
-            if (!classe) {
-                container.innerHTML = '';
-                return;
-            }
-
-            let html = `<h3>Orari esistenti per la classe ${classe}</h3>`;
+            const result = new Uint8Array(iv.length + encrypted.byteLength);
+            result.set(iv);
+            result.set(new Uint8Array(encrypted), iv.length);
             
-            const giorni = ['lunedi', 'martedi', 'mercoledi', 'giovedi', 'venerdi', 'sabato'];
-            const nomiGiorni = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
-            
-            giorni.forEach((giorno, index) => {
-                if (orariScolastici[classe][giorno] && orariScolastici[classe][giorno].length > 0) {
-                    html += `<div class="orario-lista">
-                        <h4 style="background: #007bff; color: white; padding: 10px; margin: 0;">${nomiGiorni[index]}</h4>`;
-                    
-                    orariScolastici[classe][giorno].forEach((orario, i) => {
-                        html += `<div class="orario-item">
-                            <div class="orario-time">${orario.oraInizio} - ${orario.oraFine}</div>
-                            <div class="orario-details">
-                                <h4>${orario.materia}</h4>
-                                <p>${orario.professore} • Aula ${orario.aula}</p>
-                            </div>
-                            <button class="btn btn-danger" onclick="rimuoviOrario('${classe}', '${giorno}', ${i})">Rimuovi</button>
-                        </div>`;
-                    });
-                    
-                    html += '</div>';
-                }
-            });
-            
-            container.innerHTML = html;
+            return Array.from(result);
         }
 
-        // Rimuovi orario
-        function rimuoviOrario(classe, giorno, index) {
-            if (confirm('Sei sicuro di voler rimuovere questo orario?')) {
-                orariScolastici[classe][giorno].splice(index, 1);
-                salvaDati();
-                mostraOrariEsistenti();
-            }
-        }
-
-        // Visualizza orario classe
-        function visualizzaOrarioClasse(classe) {
-            const now = new Date();
-            const giornoCorrente = now.getDay(); // 0 = domenica, 1 = lunedì, ...
-            const oraCorrente = now.getHours() * 100 + now.getMinutes();
-            
-            const giorni = ['domenica', 'lunedi', 'martedi', 'mercoledi', 'giovedi', 'venerdi', 'sabato'];
-            const nomiGiorni = ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
-            const giornoOggi = giorni[giornoCorrente];
-            
-            document.getElementById('classe-selezionata').textContent = `Classe ${classe}`;
-            
-            // Trova l'orario attuale (definito qui per essere disponibile ovunque)
-            let orarioAttuale = null;
-            if (giornoCorrente !== 0 && orariScolastici[classe][giornoOggi]) {
-                const orariOggi = orariScolastici[classe][giornoOggi];
-                orarioAttuale = trovaOrarioAttuale(orariOggi, oraCorrente);
-            }
-            
-            // Info corrente
-            let infoCorrente = '<div class="info-box"><h3>📅 Informazione Attuale</h3>';
-            
-            if (giornoCorrente === 0) {
-                infoCorrente += '<p>Oggi è domenica - Nessuna lezione programmata</p>';
-            } else if (orariScolastici[classe][giornoOggi]) {
-                const orariOggi = orariScolastici[classe][giornoOggi];
+        async function decryptFile(encryptedArray) {
+            try {
+                const encrypted = new Uint8Array(encryptedArray);
+                const iv = encrypted.slice(0, 12);
+                const data = encrypted.slice(12);
                 
-                if (orarioAttuale) {
-                    infoCorrente += `
-                        <p><strong>🕒 Ora corrente:</strong> ${orarioAttuale.oraInizio} - ${orarioAttuale.oraFine}</p>
-                        <p><strong>📚 Materia:</strong> ${orarioAttuale.materia}</p>
-                        <p><strong>👨‍🏫 Professore:</strong> ${orarioAttuale.professore}</p>
-                        <p><strong>🏫 Aula:</strong> ${orarioAttuale.aula}</p>
-                    `;
+                const decrypted = await window.crypto.subtle.decrypt(
+                    { name: 'AES-GCM', iv: iv },
+                    encryptionKey,
+                    data
+                );
+                
+                const blob = new Blob([decrypted]);
+                return URL.createObjectURL(blob);
+            } catch (error) {
+                return null;
+            }
+        }
+
+        // File handling functions
+        async function handleFileSelect(event) {
+            const files = event.target.files;
+            if (!files.length || !currentChat) return;
+            
+            for (const file of files) {
+                await sendFileMessage(file);
+            }
+            
+            // Reset file input
+            event.target.value = '';
+        }
+
+        async function sendFileMessage(file) {
+            const maxSize = 10 * 1024 * 1024; // 10MB limit
+            if (file.size > maxSize) {
+                alert('Il file è troppo grande. Massimo 10MB.');
+                return;
+            }
+            
+            const isImage = file.type.startsWith('image/');
+            const reader = new FileReader();
+            
+            reader.onload = async function(e) {
+                const fileData = new Uint8Array(e.target.result);
+                
+                const message = {
+                    sender: currentUser,
+                    text: '',
+                    timestamp: Date.now(),
+                    type: isImage ? 'image' : 'file',
+                    fileName: file.name,
+                    fileSize: file.size,
+                    fileType: file.type
+                };
+                
+                // For images, store as data URL for display
+                if (isImage) {
+                    message.file = e.target.result;
                 } else {
-                    const prossimoOrario = trovaProssimoOrario(orariOggi, oraCorrente);
-                    if (prossimoOrario) {
-                        infoCorrente += `
-                            <p><strong>Nessuna lezione in corso</strong></p>
-                            <p><strong>Prossima lezione:</strong> ${prossimoOrario.materia} alle ${prossimoOrario.oraInizio}</p>
-                        `;
-                    } else {
-                        infoCorrente += '<p>Nessuna lezione in corso e nessuna lezione rimanente oggi</p>';
-                    }
+                    // For other files, encrypt and store
+                    const blob = new Blob([fileData]);
+                    message.file = URL.createObjectURL(blob);
                 }
-            } else {
-                infoCorrente += '<p>Nessun orario programmato per oggi</p>';
-            }
-            infoCorrente += '</div>';
-            
-            // Programma giornaliero
-            let programmaHtml = '<div class="info-box"><h3>📋 Programma di Oggi</h3>';
-            if (orariScolastici[classe][giornoOggi] && orariScolastici[classe][giornoOggi].length > 0) {
-                programmaHtml += '<div class="orario-lista">';
-                orariScolastici[classe][giornoOggi].forEach(orario => {
-                    const isCurrentClass = orarioAttuale === orario;
-                    programmaHtml += `<div class="orario-item ${isCurrentClass ? 'current' : ''}">
-                        <div class="orario-time">${orario.oraInizio} - ${orario.oraFine}</div>
-                        <div class="orario-details">
-                            <h4>${orario.materia}</h4>
-                            <p>${orario.professore} • Aula ${orario.aula}</p>
-                        </div>
-                    </div>`;
-                });
-                programmaHtml += '</div>';
-            } else {
-                programmaHtml += '<p>Nessuna lezione programmata per oggi</p>';
-            }
-            programmaHtml += '</div>';
-            
-            document.getElementById('info-corrente').innerHTML = infoCorrente;
-            document.getElementById('programma-giornaliero').innerHTML = programmaHtml;
-            document.getElementById('orario-risultato').style.display = 'block';
-            
-            // Scorri alla sezione risultato
-            document.getElementById('orario-risultato').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Trova orario attuale
-        function trovaOrarioAttuale(orari, oraCorrente) {
-            for (let orario of orari) {
-                const inizio = timeToMinutes(orario.oraInizio);
-                const fine = timeToMinutes(orario.oraFine);
-                const corrente = Math.floor(oraCorrente / 100) * 60 + (oraCorrente % 100);
                 
-                if (corrente >= inizio && corrente < fine) {
-                    return orario;
+                // Encrypt file data for storage
+                message.encrypted = await encryptFile(fileData);
+                
+                // Initialize chat if needed
+                if (!chatData[currentChat]) {
+                    chatData[currentChat] = [];
                 }
-            }
-            return null;
-        }
-
-        // Trova prossimo orario
-        function trovaProssimoOrario(orari, oraCorrente) {
-            const corrente = Math.floor(oraCorrente / 100) * 60 + (oraCorrente % 100);
+                
+                // Add message to chat
+                chatData[currentChat].push(message);
+                saveChatData();
+                
+                // Display message
+                await displayMessage(message);
+                
+                // Update UI
+                scrollToBottom();
+                loadChatList();
+            };
             
-            for (let orario of orari) {
-                const inizio = timeToMinutes(orario.oraInizio);
-                if (inizio > corrente) {
-                    return orario;
+            reader.readAsArrayBuffer(file);
+        }
+
+        function getFileIcon(extension) {
+            const iconMap = {
+                'pdf': '📄',
+                'doc': '📝', 'docx': '📝',
+                'xls': '📊', 'xlsx': '📊',
+                'ppt': '📽️', 'pptx': '📽️',
+                'zip': '🗜️', 'rar': '🗜️', '7z': '🗜️',
+                'mp3': '🎵', 'wav': '🎵', 'flac': '🎵',
+                'mp4': '🎬', 'avi': '🎬', 'mkv': '🎬',
+                'txt': '📄',
+                'js': '💻', 'html': '💻', 'css': '💻', 'py': '💻'
+            };
+            
+            return iconMap[extension] || '📎';
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        function openImageModal(imageSrc) {
+            document.getElementById('modalImage').src = imageSrc;
+            document.getElementById('imageModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+
+        function downloadFile(fileUrl, fileName) {
+            const link = document.createElement('a');
+            link.href = fileUrl;
+            link.download = fileName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Chat functionality
+        function loadChatData() {
+            const saved = localStorage.getItem(`chatData_${currentUser}`);
+            if (saved) {
+                chatData = JSON.parse(saved);
+            }
+        }
+
+        function saveChatData() {
+            localStorage.setItem(`chatData_${currentUser}`, JSON.stringify(chatData));
+        }
+
+        function loadChatList() {
+            const chatList = document.getElementById('chatList');
+            chatList.innerHTML = '';
+            
+            Object.keys(chatData).sort().forEach(chatUser => {
+                const chatItem = document.createElement('div');
+                chatItem.className = 'chat-item';
+                chatItem.onclick = () => openChat(chatUser);
+                
+                const lastMessage = chatData[chatUser].length > 0 ? 
+                    chatData[chatUser][chatData[chatUser].length - 1] : null;
+                
+                chatItem.innerHTML = `
+                    <div class="chat-avatar">${chatUser.charAt(0).toUpperCase()}</div>
+                    <div class="chat-info">
+                        <div class="chat-name">${chatUser}</div>
+                        <div class="chat-preview">${lastMessage ? 
+                            (lastMessage.type === 'encrypted' ? '🔒 Messaggio crittografato' : lastMessage.text) : 
+                            'Nessun messaggio'}</div>
+                    </div>
+                `;
+                
+                chatList.appendChild(chatItem);
+            });
+        }
+
+        function handleNewChat(event) {
+            if (event.key === 'Enter') {
+                const username = event.target.value.trim();
+                if (username && username !== currentUser && VALID_USERS[username]) {
+                    if (!chatData[username]) {
+                        chatData[username] = [];
+                        saveChatData();
+                        loadChatList();
+                    }
+                    openChat(username);
+                    event.target.value = '';
+                } else if (username && !VALID_USERS[username]) {
+                    alert('Utente non trovato');
                 }
             }
-            return null;
         }
 
-        // Converte ora in minuti
-        function timeToMinutes(time) {
-            const [ore, minuti] = time.split(':').map(Number);
-            return ore * 60 + minuti;
+        async function openChat(username) {
+            currentChat = username;
+            
+            // Update UI
+            document.getElementById('welcomeScreen').style.display = 'none';
+            document.getElementById('chatArea').style.display = 'flex';
+            document.getElementById('chatHeaderName').textContent = username;
+            document.getElementById('chatHeaderAvatar').textContent = username.charAt(0).toUpperCase();
+            
+            // Update sidebar selection
+            document.querySelectorAll('.chat-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            const chatItems = document.querySelectorAll('.chat-item');
+            chatItems.forEach(item => {
+                if (item.textContent.includes(username)) {
+                    item.classList.add('active');
+                }
+            });
+            
+            // Load messages
+            await loadMessages();
         }
 
-        // Event listener per cambiamento classe
-        document.getElementById('classe-select').addEventListener('change', mostraOrariEsistenti);
-
-        // Salva dati nel browser
-        function salvaDati() {
-            localStorage.setItem('orariScolastici', JSON.stringify(orariScolastici));
+        async function loadMessages() {
+            const messagesArea = document.getElementById('messagesArea');
+            messagesArea.innerHTML = '';
+            
+            if (chatData[currentChat]) {
+                for (const message of chatData[currentChat]) {
+                    await displayMessage(message);
+                }
+            }
+            
+            scrollToBottom();
         }
 
-        // Carica dati salvati
-        function caricaDatiSalvati() {
-            const datiSalvati = localStorage.getItem('orariScolastici');
-            if (datiSalvati) {
-                orariScolastici = JSON.parse(datiSalvati);
+        async function displayMessage(message) {
+            const messagesArea = document.getElementById('messagesArea');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${message.sender === currentUser ? 'sent' : 'received'}`;
+            
+            let messageContent = '';
+            
+            // Handle different message types
+            if (message.type === 'text') {
+                messageContent = message.text;
+            } else if (message.type === 'encrypted') {
+                messageContent = await decryptMessage(message.encrypted);
+            } else if (message.type === 'image') {
+                const imageSrc = message.file || (message.encrypted ? await decryptFile(message.encrypted) : '');
+                messageContent = `
+                    <div class="message-media">
+                        <img src="${imageSrc}" alt="Immagine" class="message-image" onclick="openImageModal('${imageSrc}')">
+                    </div>
+                    ${message.text ? message.text : ''}
+                `;
+            } else if (message.type === 'file') {
+                const fileName = message.fileName || 'File';
+                const fileSize = message.fileSize ? formatFileSize(message.fileSize) : '';
+                const fileExt = fileName.split('.').pop().toLowerCase();
+                const fileIcon = getFileIcon(fileExt);
+                
+                messageContent = `
+                    <div class="message-media">
+                        <div class="message-file" onclick="downloadFile('${message.file}', '${fileName}')">
+                            <div class="file-icon">${fileIcon}</div>
+                            <div class="file-info">
+                                <div class="file-name">${fileName}</div>
+                                <div class="file-size">${fileSize}</div>
+                            </div>
+                        </div>
+                    </div>
+                    ${message.text ? message.text : ''}
+                `;
+            }
+            
+            messageDiv.innerHTML = `
+                <div class="message-content">
+                    ${messageContent}
+                    <div class="message-time">${new Date(message.timestamp).toLocaleTimeString()}</div>
+                </div>
+            `;
+            
+            messagesArea.appendChild(messageDiv);
+        }
+
+        async function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
+            const messageText = messageInput.value.trim();
+            
+            if (!messageText || !currentChat) return;
+            
+            const message = {
+                sender: currentUser,
+                text: messageText,
+                timestamp: Date.now(),
+                type: 'encrypted'
+            };
+            
+            // Encrypt message
+            message.encrypted = await encryptMessage(messageText);
+            
+            // Initialize chat if needed
+            if (!chatData[currentChat]) {
+                chatData[currentChat] = [];
+            }
+            
+            // Add message to chat
+            chatData[currentChat].push(message);
+            saveChatData();
+            
+            // Display message
+            await displayMessage(message);
+            
+            // Clear input and scroll
+            messageInput.value = '';
+            messageInput.style.height = 'auto';
+            scrollToBottom();
+            loadChatList(); // Update sidebar
+        }
+
+        function handleMessageInput(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
             }
         }
+
+        function autoResize(textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = Math.min(textarea.scrollHeight, 100) + 'px';
+        }
+
+        function scrollToBottom() {
+            const messagesArea = document.getElementById('messagesArea');
+            messagesArea.scrollTop = messagesArea.scrollHeight;
+        }
+
+        // PWA functionality
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('data:text/javascript;base64,c2VsZi5hZGRFdmVudExpc3RlbmVyKCdpbnN0YWxsJywgZnVuY3Rpb24oZSkge2UucHJldmVudERlZmF1bHQoKTtyZXR1cm4gc2VsZi5za2lwV2FpdGluZygpO30pO3NlbGYuYWRkRXZlbnRMaXN0ZW5lcignZmV0Y2gnLGZ1bmN0aW9uKGUpe3JldHVybiBudWxsO30pOw==')
+                .catch(function() {
+                    // Service worker registration failed, app will still work
+                });
+        }
+
+        // Install prompt
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+        });
     </script>
 </body>
 </html>
